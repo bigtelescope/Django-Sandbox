@@ -22,3 +22,13 @@ class Question(models.Model):
     question_text = models.TextField("Description")
     question_type = models.CharField(max_length=2, choices=QUESTION_TYPES)
     parent_poll = models.ForeignKey(Poll, editable=False, on_delete=models.CASCADE, related_name="questions")
+
+
+class Choice(models.Model):
+    choice_variant = models.TextField("Possible Answer")
+    parent_question = models.ForeignKey(
+        Question,
+        on_delete=models.CASCADE,
+        related_name="choices",
+        editable=False,
+    )
