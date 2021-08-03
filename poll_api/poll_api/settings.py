@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'account',
     'api',
 ]
 
@@ -56,7 +57,9 @@ ROOT_URLCONF = 'poll_api.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            'account',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

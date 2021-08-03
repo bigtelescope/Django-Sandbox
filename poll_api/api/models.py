@@ -1,7 +1,9 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser
 
 
 class Poll(models.Model):
+    id = models.AutoField(primary_key=True)
     poll_name = models.CharField(max_length=40)
     start_data = models.DateField("Start Data")
     end_data = models.DateField("Start Data")
@@ -19,12 +21,14 @@ QUESTION_TYPES = (
 
 
 class Question(models.Model):
+    id = models.AutoField(primary_key=True)
     question_text = models.TextField("Description")
     question_type = models.CharField(max_length=2, choices=QUESTION_TYPES)
     parent_poll = models.ForeignKey(Poll, editable=False, on_delete=models.CASCADE, related_name="questions")
 
 
 class Choice(models.Model):
+    id = models.AutoField(primary_key=True)
     choice_variant = models.TextField("Possible Answer")
     parent_question = models.ForeignKey(
         Question,
