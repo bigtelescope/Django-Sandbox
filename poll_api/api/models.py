@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractBaseUser, User
+from django.db.models import ForeignKey, ManyToManyField, OneToOneField
 
 
 class Poll(models.Model):
@@ -36,3 +37,14 @@ class Choice(models.Model):
         related_name="choices",
         editable=False,
     )
+
+
+class Answer(models.Model):
+    id = models.AutoField(primary_key=True)
+    author = ForeignKey(User, on_delete=models.CASCADE, related_name="parent_user")
+    parent_question = ForeignKey(Question, on_delete=models.CASCADE, related_name="parent_question")
+    parent_poll = ForeignKey(Poll, on_delete=models.CASCADE, related_name="parent_poll")
+
+    answer_text = models.TextField("Answer")
+    single_choice = ForeignKey(Choice, on_delete=models.CASCADE, related_name="single_choice", null=True)
+    multiple_choice = ManyToManyField(Choice, blank=True, related_name="multiple_choice")
